@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
+import authRoutes from "./routes/auth.routes.mjs";
 
 dotenv.config();
 
@@ -18,6 +19,10 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("API running");
 });
+
+// routes will be mounted here
+
+app.use("/api/auth", authRoutes);  // registration route
 
 const PORT = process.env.PORT || 5000;
 

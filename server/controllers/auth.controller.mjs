@@ -2,6 +2,9 @@ import bcrypt from "bcrypt";
 import User from "../models/user.model.mjs";
 import { generateVerificationToken } from "../utils/generateToken.mjs";
 import { sendVerificationEmail } from "../utils/sendEmail.mjs";
+import jwt from "jsonwebtoken";
+
+// Registration controller - handles user registration, validation, and sending verification email
 
 export const registerUser = async (req, res) => {
   try {
@@ -50,5 +53,49 @@ export const registerUser = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Email verification controller - verifies the token and updates user status
+
+export const verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    if (!token) {
+      return res.status(400).json({
+        message: "Verification token missing"
+      });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({
+        message: "Email already verified"
+      });
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    return res.status(200).json({
+      message: "Email verified successfully"
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    return res.status(400).json({
+      message: "Invalid or expired token"
+    });
   }
 };

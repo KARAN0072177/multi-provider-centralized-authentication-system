@@ -1,7 +1,6 @@
 import client from "../utils/googleOAuth.mjs";
-import axios from "axios";
 import User from "../models/user.model.mjs";
-import { generateAuthToken } from "../utils/generateToken.mjs";
+import { handleOAuthUser } from "../utils/oauth.service.mjs";
 
 export const googleAuth = (req, res) => {
 
@@ -33,46 +32,13 @@ export const googleCallback = async (req, res) => {
         const email = payload.email;
         const googleId = payload.sub;
 
-        let user = await User.findOne({ email });
-
-        if (!user) {
-
-            user = await User.create({
-                email,
-                isVerified: true,
-                providers: {
-                    google: {
-                        googleId
-                    }
-                }
-            });
-
-            return res.redirect(
-                `${process.env.FRONTEND_URL}/choose-username?userId=${user._id}`
-            );
-
-        }
-
-        if (!user.providers.google?.googleId) {
-
-            return res.redirect(
-                `${process.env.FRONTEND_URL}/link-google?email=${email}&googleId=${googleId}`
-            );
-
-        }
-
-        // if username not set yet
-        if (!user.username) {
-            return res.redirect(
-                `${process.env.FRONTEND_URL}/choose-username?userId=${user._id}`
-            );
-        }
-
-        const token = generateAuthToken(user._id);
-
-        return res.redirect(
-            `${process.env.FRONTEND_URL}/oauth-success?token=${token}`
-        );
+        await handleOAuthUser({
+            email,
+            provider: "google",
+            providerId: googleId,
+            res,
+            frontendUrl: process.env.FRONTEND_URL
+        });
 
     } catch (error) {
 

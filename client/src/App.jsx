@@ -6,6 +6,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Profile from "./pages/Profile";
 import ChooseUsername from "./pages/ChooseUsername";
 import LinkGoogle from "./pages/LinkGoogle";
+import OAuthSuccess from "./pages/OAuthSuccess";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/choose-username" element={<ChooseUsername />} /> {/* New route for choosing username after Google login */}
         <Route path="/link-google" element={<LinkGoogle />} /> {/* New route for linking Google accounts */}
+        <Route path="/oauth-success" element={<OAuthSuccess />} /> {/* New route for handling OAuth success */}
       </Routes>
     </BrowserRouter>
   );

@@ -29,6 +29,12 @@ export default function Login() {
         }
     };
 
+    // Google OAuth login handler
+
+    const handleGoogleLogin = () => {
+        window.location.href = "http://localhost:5000/api/auth/google";
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
@@ -66,6 +72,14 @@ export default function Login() {
                         className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
                     >
                         Login
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleGoogleLogin}
+                        className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition mt-2 flex items-center justify-center space-x-2"
+                    >
+                        Login with Google
                     </button>
 
                 </form>

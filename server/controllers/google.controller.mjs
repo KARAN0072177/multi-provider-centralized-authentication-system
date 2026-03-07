@@ -1,6 +1,7 @@
 import client from "../utils/googleOAuth.mjs";
 import axios from "axios";
 import User from "../models/user.model.mjs";
+import { generateAuthToken } from "../utils/generateToken.mjs";
 
 export const googleAuth = (req, res) => {
 
@@ -60,8 +61,17 @@ export const googleCallback = async (req, res) => {
 
         }
 
+        // if username not set yet
+        if (!user.username) {
+            return res.redirect(
+                `${process.env.FRONTEND_URL}/choose-username?userId=${user._id}`
+            );
+        }
+
+        const token = generateAuthToken(user._id);
+
         return res.redirect(
-            `${process.env.FRONTEND_URL}/login`
+            `${process.env.FRONTEND_URL}/oauth-success?token=${token}`
         );
 
     } catch (error) {

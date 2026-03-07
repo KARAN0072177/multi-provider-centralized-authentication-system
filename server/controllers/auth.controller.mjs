@@ -3,6 +3,7 @@ import User from "../models/user.model.mjs";
 import { generateVerificationToken } from "../utils/generateToken.mjs";
 import { sendVerificationEmail } from "../utils/sendEmail.mjs";
 import jwt from "jsonwebtoken";
+import { generateAuthToken } from "../utils/generateToken.mjs";
 
 // Registration controller - handles user registration, validation, and sending verification email
 
@@ -96,6 +97,71 @@ export const verifyEmail = async (req, res) => {
 
     return res.status(400).json({
       message: "Invalid or expired token"
+    });
+  }
+};
+
+// Login controller - handles user login, credential validation, and token generation
+
+export const loginUser = async (req, res) => {
+  try {
+    const { identifier, password } = req.body;
+
+    if (!identifier || !password) {
+      return res.status(400).json({
+        message: "Identifier and password required"
+      });
+    }
+
+    const user = await User.findOne({
+      $or: [
+        { email: identifier },
+        { username: identifier }
+      ]
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid credentials"
+      });
+    }
+
+    if (!user.providers?.local?.passwordHash) {
+      return res.status(400).json({
+        message: "Account registered using OAuth provider"
+      });
+    }
+
+    const isMatch = await bcrypt.compare(
+      password,
+      user.providers.local.passwordHash
+    );
+
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Invalid credentials"
+      });
+    }
+
+    if (!user.isVerified) {
+      return res.status(403).json({
+        message: "Please verify your email first"
+      });
+    }
+
+    const token = generateAuthToken(user._id);
+
+    return res.status(200).json({
+      message: "Login successful",
+      token,
+      user
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error"
     });
   }
 };

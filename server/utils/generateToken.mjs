@@ -7,3 +7,11 @@ export const generateVerificationToken = (userId, email) => {
     { expiresIn: "15m" }
   );
 };
+
+export const generateAuthToken = (userId) => {
+  return jwt.sign(
+    { userId },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+};

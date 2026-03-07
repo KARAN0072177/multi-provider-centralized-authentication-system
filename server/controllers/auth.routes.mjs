@@ -1,9 +1,10 @@
 import express from "express";
-import { registerUser, verifyEmail } from "../controllers/auth.controller.mjs";
+import { registerUser, verifyEmail, loginUser } from "../controllers/auth.controller.mjs";
 
 const router = express.Router();
 
-router.post("/register", registerUser);  // registration route
-router.post("/verify-email", verifyEmail); // email verification route
+router.post("/register", registerUser);
+router.post("/verify-email", verifyEmail);
+router.post("/login", loginUser);
 
 export default router;

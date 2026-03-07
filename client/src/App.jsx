@@ -4,6 +4,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import VerifyEmail from "./pages/VerifyEmail";
 import Profile from "./pages/Profile";
+import ChooseUsername from "./pages/ChooseUsername";
+import LinkGoogle from "./pages/LinkGoogle";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/choose-username" element={<ChooseUsername />} /> {/* New route for choosing username after Google login */}
+        <Route path="/link-google" element={<LinkGoogle />} /> {/* New route for linking Google accounts */}
       </Routes>
     </BrowserRouter>
   );

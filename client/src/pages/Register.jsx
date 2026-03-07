@@ -2,83 +2,97 @@ import { useState } from "react";
 import API from "../api/auth";
 
 export default function Register() {
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: ""
-  });
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
+    const [form, setForm] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
     });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        });
+    };
 
-    try {
-      const res = await API.post("/auth/register", form);
-      alert(res.data.message);
-    } catch (err) {
-      alert(err.response?.data?.message || "Error");
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        try {
+            const res = await API.post("/auth/register", form);
+            alert(res.data.message);
+        } catch (err) {
+            alert(err.response?.data?.message || "Error");
+        }
+    };
 
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+    // Google OAuth registration handler
 
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          Register
-        </h2>
+    const handleGoogleRegister = () => {
+        window.location.href = "http://localhost:5000/api/auth/google";
+    };
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
-          <input
-            name="username"
-            placeholder="Username"
-            onChange={handleChange}
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
 
-          <input
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+                <h2 className="text-2xl font-semibold text-center mb-6">
+                    Register
+                </h2>
 
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+                <form onSubmit={handleSubmit} className="space-y-4">
 
-          <input
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            onChange={handleChange}
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+                    <input
+                        name="username"
+                        placeholder="Username"
+                        onChange={handleChange}
+                        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Register
-          </button>
+                    <input
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
 
-        </form>
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
 
-      </div>
+                    <input
+                        name="confirmPassword"
+                        type="password"
+                        placeholder="Confirm Password"
+                        onChange={handleChange}
+                        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
 
-    </div>
-  );
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Register
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleGoogleRegister}
+                        className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition mt-2 flex items-center justify-center space-x-2"
+                    >
+                        Register with Google
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    );
 }

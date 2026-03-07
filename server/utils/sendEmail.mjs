@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const sendVerificationEmail = async (email, link) => {
   try {
     await resend.emails.send({
-      from: "Auth System <onboarding@resend.dev>",
+      from: "Auth System <noreply@karanart.com>",
       to: email,
       subject: "Verify your email",
       html: `

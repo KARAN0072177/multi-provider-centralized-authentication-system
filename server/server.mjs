@@ -1,10 +1,10 @@
+import "./config/env.mjs";
+
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
 import authRoutes from "./routes/auth.routes.mjs";
-
-dotenv.config();
+import userRoutes from "./routes/user.routes.mjs";
 
 const app = express();
 
@@ -22,7 +22,8 @@ app.get("/", (req, res) => {
 
 // routes will be mounted here
 
-app.use("/api/auth", authRoutes);  // registration route
+app.use("/api/auth", authRoutes);  // registration route and email verification route and login route
+app.use("/api/user", userRoutes);  // protected route for user profile
 
 const PORT = process.env.PORT || 5000;
 

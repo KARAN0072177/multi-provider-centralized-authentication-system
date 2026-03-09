@@ -8,20 +8,44 @@ import ChooseUsername from "./pages/ChooseUsername";
 import LinkGoogle from "./pages/LinkGoogle";
 import OAuthSuccess from "./pages/OAuthSuccess";
 import LinkAccount from "./pages/LinkAccount";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
 import ProtectedRoute from "./components/ProtectedRoute";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Auth Pages (NO Navbar/Footer) */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
-        <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute> }/> // Protected route for profile page
-        <Route path="/choose-username" element={<ChooseUsername />} /> {/* New route for choosing username after Google login */}
-        <Route path="/link-google" element={<LinkGoogle />} /> {/* New route for linking Google accounts */}
-        <Route path="/oauth-success" element={<OAuthSuccess />} /> {/* New route for handling OAuth success */}
-        <Route path="/link-account" element={<LinkAccount />} /> {/* New route for linking existing accounts with OAuth */}
+        <Route path="/oauth-success" element={<OAuthSuccess />} />
+        <Route path="/choose-username" element={<ChooseUsername />} />
+        <Route path="/link-google" element={<LinkGoogle />} />
+        <Route path="/link-account" element={<LinkAccount />} />
+
+        {/* Main Layout (WITH Navbar/Footer) */}
+        <Route element={<MainLayout />}>
+
+          <Route path="/home" element={<Home />} />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/about" element={<About />} />
+
+        </Route>
+
       </Routes>
     </BrowserRouter>
   );

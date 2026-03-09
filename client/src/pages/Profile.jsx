@@ -33,7 +33,7 @@ export default function Profile() {
 
     localStorage.removeItem("token");
 
-    navigate("/login");
+    navigate("/");
 
   };
 

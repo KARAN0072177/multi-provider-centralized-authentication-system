@@ -6,6 +6,8 @@ import connectDB from "./config/db.mjs";
 import authRoutes from "./routes/auth.routes.mjs";
 import userRoutes from "./routes/user.routes.mjs";
 import googleRoutes from "./routes/google.routes.mjs";
+import githubRoutes from "./routes/github.routes.mjs";
+import microsoftRoutes from "./routes/microsoft.routes.mjs";
 
 const app = express();
 
@@ -25,7 +27,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);  // registration route and email verification route and login route
 app.use("/api/user", userRoutes);  // protected route for user profile
-app.use("/api/auth", googleRoutes);
+app.use("/api/auth", googleRoutes); // Google OAuth routes 
+app.use("/api/auth", githubRoutes); // GitHub OAuth routes
+app.use("/api/auth", microsoftRoutes); // Microsoft OAuth routes
 
 const PORT = process.env.PORT || 5000;
 

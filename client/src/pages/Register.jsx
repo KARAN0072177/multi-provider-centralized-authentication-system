@@ -33,6 +33,18 @@ export default function Register() {
         window.location.href = "http://localhost:5000/api/auth/google";
     };
 
+    // GitHub OAuth registration handler
+
+    const handleGithubRegister = () => {
+        window.location.href = "http://localhost:5000/api/auth/github";
+    };
+
+    // Microsoft OAuth registration handler
+
+    const handleMicrosoftRegister = () => {
+        window.location.href = "http://localhost:5000/api/auth/microsoft";
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
@@ -87,6 +99,22 @@ export default function Register() {
                         className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition mt-2 flex items-center justify-center space-x-2"
                     >
                         Register with Google
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleGithubRegister}
+                        className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 transition mt-2 flex items-center justify-center space-x-2"
+                    >
+                        Register with GitHub
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleMicrosoftRegister}
+                        className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition mt-2 flex items-center justify-center space-x-2"
+                    >
+                        Register with Microsoft
                     </button>
 
                 </form>

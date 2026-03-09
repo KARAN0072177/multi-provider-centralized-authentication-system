@@ -35,6 +35,18 @@ export default function Login() {
         window.location.href = "http://localhost:5000/api/auth/google";
     };
 
+    // GitHub OAuth login handler
+
+    const handleGithubLogin = () => {
+        window.location.href = "http://localhost:5000/api/auth/github";
+    };
+
+    // Microsoft OAuth login handler
+
+    const handleMicrosoftLogin = () => {
+        window.location.href = "http://localhost:5000/api/auth/microsoft";
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
@@ -80,6 +92,22 @@ export default function Login() {
                         className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition mt-2 flex items-center justify-center space-x-2"
                     >
                         Login with Google
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleGithubLogin}
+                        className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 transition mt-2 flex items-center justify-center space-x-2"
+                    >
+                        Login with GitHub
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleMicrosoftLogin}
+                        className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition mt-2 flex items-center justify-center space-x-2"
+                    >
+                        Login with Microsoft
                     </button>
 
                 </form>

@@ -171,3 +171,51 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+export const linkOAuthAccount = async (req, res) => {
+
+  try {
+
+    const { email, provider, providerId } = req.body;
+
+    if (!email || !provider || !providerId) {
+      return res.status(400).json({
+        message: "Missing required data"
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    if (user.providers?.[provider]?.[`${provider}Id`]) {
+      return res.status(400).json({
+        message: `${provider} already linked`
+      });
+    }
+
+    user.providers[provider] = {
+      [`${provider}Id`]: providerId
+    };
+
+    await user.save();
+
+    res.json({
+      message: `${provider} account linked successfully`
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
+};

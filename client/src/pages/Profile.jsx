@@ -49,8 +49,35 @@ export default function Profile() {
       </p>
 
       <p>
-        <strong>Account Created:</strong> {new Date(user.createdAt).toLocaleString()}
+        <strong>Account Created:</strong>{" "}
+        {new Date(user.createdAt).toLocaleString()}
       </p>
+
+      <h3>Linked Accounts</h3>
+
+      <ul>
+
+        <li>
+          Email / Password:
+          {user.linkedAccounts.emailPassword ? " ✅" : " ❌"}
+        </li>
+
+        <li>
+          Google:
+          {user.linkedAccounts.google ? " ✅" : " ❌"}
+        </li>
+
+        <li>
+          GitHub:
+          {user.linkedAccounts.github ? " ✅" : " ❌"}
+        </li>
+
+        <li>
+          Microsoft:
+          {user.linkedAccounts.microsoft ? " ✅" : " ❌"}
+        </li>
+
+      </ul>
 
     </div>
   );

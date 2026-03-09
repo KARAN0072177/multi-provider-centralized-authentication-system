@@ -8,6 +8,7 @@ import ChooseUsername from "./pages/ChooseUsername";
 import LinkGoogle from "./pages/LinkGoogle";
 import OAuthSuccess from "./pages/OAuthSuccess";
 import LinkAccount from "./pages/LinkAccount";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute> }/> // Protected route for profile page
         <Route path="/choose-username" element={<ChooseUsername />} /> {/* New route for choosing username after Google login */}
         <Route path="/link-google" element={<LinkGoogle />} /> {/* New route for linking Google accounts */}
         <Route path="/oauth-success" element={<OAuthSuccess />} /> {/* New route for handling OAuth success */}

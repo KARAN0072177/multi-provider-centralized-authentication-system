@@ -14,7 +14,6 @@ export default function Profile() {
       try {
 
         const res = await API.get("/user/profile");
-
         setUser(res.data);
 
       } catch (error) {
@@ -32,19 +31,37 @@ export default function Profile() {
   const handleLogout = () => {
 
     localStorage.removeItem("token");
-
     navigate("/");
 
+  };
+
+  const generateInitialAvatar = (username) => {
+    const initials = username
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+
+    return `https://ui-avatars.com/api/?name=${initials}&background=random`;
   };
 
   if (!user) {
     return <h2>Loading...</h2>;
   }
 
+  const avatar = user.avatar || generateInitialAvatar(user.username);
+
   return (
     <div>
 
       <h2>User Profile</h2>
+
+      <img
+        src={avatar}
+        alt="profile"
+        width="100"
+        style={{ borderRadius: "50%" }}
+      />
 
       <p>
         <strong>Username:</strong> {user.username}

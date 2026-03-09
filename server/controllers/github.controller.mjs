@@ -55,6 +55,7 @@ export const githubCallback = async (req, res) => {
     );
 
     const githubId = userResponse.data.id;
+    const avatar = userResponse.data.avatar_url;
 
     // fetch email
     const emailResponse = await axios.get(
@@ -77,6 +78,7 @@ export const githubCallback = async (req, res) => {
       email: primaryEmail,
       provider: "github",
       providerId: githubId,
+      avatar,
       res,
       frontendUrl: process.env.FRONTEND_URL
     });

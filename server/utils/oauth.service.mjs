@@ -5,6 +5,7 @@ export const handleOAuthUser = async ({
     email,
     provider,
     providerId,
+    avatar,
     res,
     frontendUrl
 }) => {
@@ -17,6 +18,7 @@ export const handleOAuthUser = async ({
         user = await User.create({
             email,
             isVerified: true,
+            avatar,
             providers: {
                 [provider]: {
                     [`${provider}Id`]: providerId

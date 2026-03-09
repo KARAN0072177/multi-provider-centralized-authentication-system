@@ -20,6 +20,7 @@ export const getProfile = async (req, res) => {
       username: user.username,
       email: user.email,
       loginMethod,
+      avatar: user.avatar,
       createdAt: user.createdAt,
       linkedAccounts
     });

@@ -31,11 +31,13 @@ export const googleCallback = async (req, res) => {
 
         const email = payload.email;
         const googleId = payload.sub;
+        const avatar = payload.picture;
 
         await handleOAuthUser({
             email,
             provider: "google",
             providerId: googleId,
+            avatar,
             res,
             frontendUrl: process.env.FRONTEND_URL
         });

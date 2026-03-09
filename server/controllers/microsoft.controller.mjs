@@ -52,10 +52,13 @@ export const microsoftCallback = async (req, res) => {
       profileResponse.data.mail ||
       profileResponse.data.userPrincipalName;
 
+      const avatar = `https://graph.microsoft.com/v1.0/me/photo/$value?access_token=${accessToken}`;
+
     await handleOAuthUser({
       email,
       provider: "microsoft",
       providerId: microsoftId,
+      avatar,
       res,
       frontendUrl: process.env.FRONTEND_URL
     });

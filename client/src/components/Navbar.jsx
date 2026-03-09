@@ -37,7 +37,7 @@ export default function Navbar() {
           Logout
         </button>
       ) : (
-        <Link to="/login">
+        <Link to="/">
           Login
         </Link>
       )}

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import API from "../api/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
 
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -27,6 +29,14 @@ export default function Profile() {
 
   }, []);
 
+  const handleLogout = () => {
+
+    localStorage.removeItem("token");
+
+    navigate("/login");
+
+  };
+
   if (!user) {
     return <h2>Loading...</h2>;
   }
@@ -45,7 +55,7 @@ export default function Profile() {
       </p>
 
       <p>
-        <strong>Login Method:</strong> {user.loginMethod}
+        <strong>Current Login Method:</strong> {user.loginMethod}
       </p>
 
       <p>
@@ -78,6 +88,10 @@ export default function Profile() {
         </li>
 
       </ul>
+
+      <button onClick={handleLogout}>
+        Logout
+      </button>
 
     </div>
   );

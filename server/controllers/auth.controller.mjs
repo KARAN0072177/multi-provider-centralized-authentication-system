@@ -155,7 +155,7 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const token = generateAuthToken(user._id);
+    const token = generateAuthToken(user._id, "local");
 
     return res.status(200).json({
       message: "Login successful",

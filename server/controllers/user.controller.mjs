@@ -4,19 +4,10 @@ export const getProfile = async (req, res) => {
 
     const user = req.user;
 
-    let loginMethod = "Email/Password";
-
-    if (user.providers.google?.googleId) {
-      loginMethod = "Google";
-    }
-
-    if (user.providers.github?.githubId) {
-      loginMethod = "GitHub";
-    }
-
-    if (user.providers.microsoft?.microsoftId) {
-      loginMethod = "Microsoft";
-    }
+    const loginMethod =
+      req.provider === "local"
+        ? "Email/Password"
+        : req.provider.charAt(0).toUpperCase() + req.provider.slice(1);
 
     const linkedAccounts = {
       emailPassword: !!user.providers?.local?.passwordHash,

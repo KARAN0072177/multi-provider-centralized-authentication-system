@@ -8,10 +8,12 @@ export const generateVerificationToken = (userId, email) => {
   );
 };
 
-export const generateAuthToken = (userId) => {
+export const generateAuthToken = (userId, provider) => {
+
   return jwt.sign(
-    { userId },
+    { userId, provider },
     process.env.JWT_SECRET,
     { expiresIn: "7d" }
   );
+
 };

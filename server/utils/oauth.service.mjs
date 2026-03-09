@@ -46,7 +46,7 @@ export const handleOAuthUser = async ({
     }
 
     // LOGIN SUCCESS
-    const token = generateAuthToken(user._id);
+    const token = generateAuthToken(user._id, provider);
 
     return res.redirect(
         `${frontendUrl}/oauth-success?token=${token}`

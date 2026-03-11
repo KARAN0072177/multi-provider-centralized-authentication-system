@@ -14,7 +14,7 @@ export default function OAuthSuccess() {
       localStorage.setItem("token", token);
       navigate("/profile");
     } else {
-      navigate("/login");
+      navigate("/");
     }
 
   }, []);

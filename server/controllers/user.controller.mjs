@@ -4,10 +4,18 @@ export const getProfile = async (req, res) => {
 
     const user = req.user;
 
+    const provider = req.provider;
+
     const loginMethod =
-      req.provider === "local"
+      provider === "local"
         ? "Email/Password"
-        : req.provider.charAt(0).toUpperCase() + req.provider.slice(1);
+        : provider.charAt(0).toUpperCase() + provider.slice(1);
+
+    let avatar = null;
+
+    if (provider !== "local") {
+      avatar = user.providers?.[provider]?.avatar;
+    }
 
     const linkedAccounts = {
       emailPassword: !!user.providers?.local?.passwordHash,
@@ -19,8 +27,8 @@ export const getProfile = async (req, res) => {
     return res.json({
       username: user.username,
       email: user.email,
+      avatar,
       loginMethod,
-      avatar: user.avatar,
       createdAt: user.createdAt,
       linkedAccounts
     });

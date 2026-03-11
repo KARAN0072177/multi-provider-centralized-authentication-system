@@ -18,10 +18,10 @@ export const handleOAuthUser = async ({
         user = await User.create({
             email,
             isVerified: true,
-            avatar,
             providers: {
                 [provider]: {
-                    [`${provider}Id`]: providerId
+                    [`${provider}Id`]: providerId,
+                    avatar
                 }
             }
         });
@@ -29,6 +29,13 @@ export const handleOAuthUser = async ({
         return res.redirect(
             `${frontendUrl}/choose-username?userId=${user._id}`
         );
+    }
+
+    // 🔥 IMPORTANT FIX
+    // If user already exists but avatar is missing, save it
+    if (avatar && user.providers?.[provider]) {
+        user.providers[provider].avatar = avatar;
+        await user.save();
     }
 
     // EXISTING USER BUT PROVIDER NOT LINKED

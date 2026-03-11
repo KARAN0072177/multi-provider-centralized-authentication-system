@@ -11,11 +11,6 @@ const userSchema = new mongoose.Schema(
       maxlength: 30
     },
 
-    avatar: {
-      type: String,
-      default: null
-    },
-
     email: {
       type: String,
       required: true,
@@ -30,6 +25,7 @@ const userSchema = new mongoose.Schema(
     },
 
     providers: {
+
       local: {
         passwordHash: {
           type: String
@@ -39,17 +35,26 @@ const userSchema = new mongoose.Schema(
       google: {
         googleId: {
           type: String
+        },
+        avatar: {
+          type: String
         }
       },
 
       github: {
         githubId: {
           type: String
+        },
+        avatar: {
+          type: String
         }
       },
 
       microsoft: {
         microsoftId: {
+          type: String
+        },
+        avatar: {
           type: String
         }
       }

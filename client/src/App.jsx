@@ -10,6 +10,7 @@ import OAuthSuccess from "./pages/OAuthSuccess";
 import LinkAccount from "./pages/LinkAccount";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import VerifyEmailNotice from "./pages/VerifyEmailNotice";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import MainLayout from "./layouts/MainLayout";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/choose-username" element={<ChooseUsername />} />
         <Route path="/link-google" element={<LinkGoogle />} />
         <Route path="/link-account" element={<LinkAccount />} />
+        <Route path="/verify-email-notice" element={<VerifyEmailNotice />} />
 
         {/* Main Layout (WITH Navbar/Footer) */}
         <Route element={<MainLayout />}>
